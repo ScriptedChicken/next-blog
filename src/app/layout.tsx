@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from 'next/link'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,66 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <head>
+        {/* Bootstrap CSS */}
+        <link 
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+        />
+        {/* Bootstrap Icons (optional) */}
+        <link 
+          rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        />
+        {/* DOMPurify */}
+        <script type="text/javascript" src="dist/purify.min.js"></script>
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Navigation Header */}
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+          <div className="container">
+            {/* Brand/Logo */}
+            <Link className="navbar-brand fw-bold fs-3" href="/">
+              <i className="bi bi-journal-text me-2"></i>
+              Next JS Blog
+            </Link>
+
+            {/* Navigation Links */}
+            <div className="" id="navbarNav">
+              <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" href="/">
+                    <i className="bi bi-house me-1"></i>
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/posts">
+                    <i className="bi bi-journals me-1"></i>
+                    Posts
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/about">
+                    <i className="bi bi-info-circle me-1"></i>
+                    About
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        {/* Main Content */}
+        <main>
+          {children}
+        </main>
+
+        {/* Bootstrap JS Bundle */}
+        <script 
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+          defer
+        ></script>
       </body>
     </html>
   );
